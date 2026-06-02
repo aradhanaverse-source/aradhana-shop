@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aradhana Verse - Top 10 Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-rank {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-price {
+            color: #e91e63;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .buy-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛍️ Aradhana's Top Picks</h1>
+            <p>Best products curated just for you ❤️</p>
+            <p style="font-size: 0.9rem; margin-top: 10px;">👇 Click on "Buy Now" to get exclusive deals 👇</p>
+        </header>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be loaded here automatically -->
+        </div>
+
+        <footer>
+            <p>© 2026 Aradhana Verse | Best Deals for You</p>
+        </footer>
+    </div>
+
+    <script>
+        // 📦 YAHAN APNE MEESHO AFFILIATE LINKS DALEN
+        // Jaise hi aap koi naya reel daalein, yahan product add karein
+        
+        const products = [
+            {
+                rank: "🏆 Top Pick",
+                image: "https://via.placeholder.com/300x250/FFB6C1/FFFFFF?text=Product+1",
+                title: "Beautiful Anarkali Suit",
+                price: "₹1,299",
+                affiliateLink: "https://affiliate.meesho.com/your-link-1" // 🔁 APNA LINK YAHAN LAGAYEIN
+            },
+            {
+                rank: "#2 Best Seller",
+                image: "https://via.placeholder.com/300x250/FFD700/FFFFFF?text=Product+2",
+                title: "Cotton Saree with Blouse",
+                price: "₹899",
+                affiliateLink: "https://affiliate.meesho.com/your-link-2" // 🔁 APNA LINK YAHAN LAGAYEIN
+            },
+            {
+                rank: "#3 Trending",
+                image: "https://via.placeholder.com/300x250/98FB98/FFFFFF?text=Product+3",
+                title: "Designer Earrings Set",
+                price: "₹399",
+                affiliateLink: "https://affiliate.meesho.com/your-link-3" // 🔁 APNA LINK YAHAN LAGAYEIN
+            },
+            {
+                rank: "#4 Hot Deal",
+                image: "https://via.placeholder.com/300x250/DDA0DD/FFFFFF?text=Product+4",
+                title: "Lehenga Choli for Women",
+                price: "₹2,499",
+                affiliateLink: "https://affiliate.meesho.com/your-link-4"
+            },
+            {
+                rank: "#5 Customer Choice",
+                image: "https://via.placeholder.com/300x250/87CEEB/FFFFFF?text=Product+5",
+                title: "Beauty Makeup Kit",
+                price: "₹599",
+                affiliateLink: "https://affiliate.meesho.com/your-link-5"
+            },
+            {
+                rank: "#6 Value Pick",
+                image: "https://via.placeholder.com/300x250/F0E68C/FFFFFF?text=Product+6",
+                title: "Footwear Sandals",
+                price: "₹699",
+                affiliateLink: "https://affiliate.meesho.com/your-link-6"
+            },
+            {
+                rank: "#7 New Arrival",
+                image: "https://via.placeholder.com/300x250/FFA07A/FFFFFF?text=Product+7",
+                title: "Handbag for Women",
+                price: "₹1,099",
+                affiliateLink: "https://affiliate.meesho.com/your-link-7"
+            },
+            {
+                rank: "#8 Organic",
+                image: "https://via.placeholder.com/300x250/BC8F8F/FFFFFF?text=Product+8",
+                title: "Skin Care Combo",
+                price: "₹799",
+                affiliateLink: "https://affiliate.meesho.com/your-link-8"
+            },
+            {
+                rank: "#9 Budget Buy",
+                image: "https://via.placeholder.com/300x250/DEB887/FFFFFF?text=Product+9",
+                title: "Hair Accessories Set",
+                price: "₹199",
+                affiliateLink: "https://affiliate.meesho.com/your-link-9"
+            },
+            {
+                rank: "#10 Special",
+                image: "https://via.placeholder.com/300x250/CD5C5C/FFFFFF?text=Product+10",
+                title: "Wrist Watch for Women",
+                price: "₹1,499",
+                affiliateLink: "https://affiliate.meesho.com/your-link-10"
+            }
+        ];
+
+        // Function to display products
+        function displayProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = ''; // Clear existing content
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" class="product-image" onerror="this.src='https://via.placeholder.com/300x250/CCCCCC/FFFFFF?text=Image+Not+Found'">
+                    <div class="product-info">
+                        <div class="product-rank">${product.rank}</div>
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">${product.price}</div>
+                        <a href="${product.affiliateLink}" target="_blank" class="buy-btn">🛒 Buy Now</a>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        // Load products when page opens
+        displayProducts();
+    </script>
+</body>
+</html>
