@@ -58,11 +58,21 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
-        .product-image {
+        .product-image-wrapper {
             width: 100%;
             height: 250px;
-            object-fit: cover;
-            background: #f0f0f0;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;  /* 🔥 CHANGE: ab puri image dikhegi */
+            background: #ffffff;
         }
 
         .product-info {
@@ -111,6 +121,16 @@
             opacity: 0.9;
         }
 
+        .no-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
         footer {
             text-align: center;
             color: white;
@@ -137,9 +157,7 @@
             <p style="font-size: 0.9rem; margin-top: 10px;">👇 Click on "Buy Now" to get exclusive deals 👇</p>
         </header>
 
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be loaded here automatically -->
-        </div>
+        <div class="products-grid" id="productsGrid"></div>
 
         <footer>
             <p>© 2026 Aradhana Verse | Best Deals for You</p>
@@ -147,93 +165,105 @@
     </div>
 
     <script>
-        // 📦 YAHAN APNE MEESHO AFFILIATE LINKS DALEN
-        // Jaise hi aap koi naya reel daalein, yahan product add karein
-        
         const products = [
             {
                 rank: "🏆 Top Pick",
-                image: "https://via.placeholder.com/300x250/FFB6C1/FFFFFF?text=Product+1",
-                title: "Beautiful Anarkali Suit",
-                price: "₹1,299",
-                affiliateLink: "https://affiliate.meesho.com/your-link-1" // 🔁 APNA LINK YAHAN LAGAYEIN
-            },
-            {
-                rank: "#2 Best Seller",
                 image: "https://images.meesho.com/images/products/437978990/yxg2h_512.avif?width=512",
                 title: "Cotton Saree with Blouse",
                 price: "₹899",
-                affiliateLink: "https://affiliate.meesho.com/https://www.meesho.com/s/p/78rer2?utm_source=s_w" // 🔁 APNA LINK YAHAN LAGAYEIN
+                affiliateLink: "https://www.meesho.com/s/p/78rer2?utm_source=s_w"
+            },
+            {
+                rank: "#2 Best Seller",
+                image: "",  // Empty image - solid color dikhega
+                title: "Beautiful Anarkali Suit",
+                price: "₹1,299",
+                affiliateLink: "#"
             },
             {
                 rank: "#3 Trending",
-                image: "https://via.placeholder.com/300x250/98FB98/FFFFFF?text=Product+3",
+                image: "",
                 title: "Designer Earrings Set",
                 price: "₹399",
-                affiliateLink: "https://affiliate.meesho.com/your-link-3" // 🔁 APNA LINK YAHAN LAGAYEIN
+                affiliateLink: "#"
             },
             {
                 rank: "#4 Hot Deal",
-                image: "https://via.placeholder.com/300x250/DDA0DD/FFFFFF?text=Product+4",
+                image: "",
                 title: "Lehenga Choli for Women",
                 price: "₹2,499",
-                affiliateLink: "https://affiliate.meesho.com/your-link-4"
+                affiliateLink: "#"
             },
             {
                 rank: "#5 Customer Choice",
-                image: "https://via.placeholder.com/300x250/87CEEB/FFFFFF?text=Product+5",
+                image: "",
                 title: "Beauty Makeup Kit",
                 price: "₹599",
-                affiliateLink: "https://affiliate.meesho.com/your-link-5"
+                affiliateLink: "#"
             },
             {
                 rank: "#6 Value Pick",
-                image: "https://via.placeholder.com/300x250/F0E68C/FFFFFF?text=Product+6",
+                image: "",
                 title: "Footwear Sandals",
                 price: "₹699",
-                affiliateLink: "https://affiliate.meesho.com/your-link-6"
+                affiliateLink: "#"
             },
             {
                 rank: "#7 New Arrival",
-                image: "https://via.placeholder.com/300x250/FFA07A/FFFFFF?text=Product+7",
+                image: "",
                 title: "Handbag for Women",
                 price: "₹1,099",
-                affiliateLink: "https://affiliate.meesho.com/your-link-7"
+                affiliateLink: "#"
             },
             {
                 rank: "#8 Organic",
-                image: "https://via.placeholder.com/300x250/BC8F8F/FFFFFF?text=Product+8",
+                image: "",
                 title: "Skin Care Combo",
                 price: "₹799",
-                affiliateLink: "https://affiliate.meesho.com/your-link-8"
+                affiliateLink: "#"
             },
             {
                 rank: "#9 Budget Buy",
-                image: "https://via.placeholder.com/300x250/DEB887/FFFFFF?text=Product+9",
+                image: "",
                 title: "Hair Accessories Set",
                 price: "₹199",
-                affiliateLink: "https://affiliate.meesho.com/your-link-9"
+                affiliateLink: "#"
             },
             {
                 rank: "#10 Special",
-                image: "https://via.placeholder.com/300x250/CD5C5C/FFFFFF?text=Product+10",
+                image: "",
                 title: "Wrist Watch for Women",
                 price: "₹1,499",
-                affiliateLink: "https://affiliate.meesho.com/your-link-10"
+                affiliateLink: "#"
             }
         ];
 
-        // Function to display products
         function displayProducts() {
             const productsGrid = document.getElementById('productsGrid');
-            productsGrid.innerHTML = ''; // Clear existing content
+            productsGrid.innerHTML = '';
             
             products.forEach(product => {
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
                 
+                // Image section - properly centered
+                let imageHtml = '';
+                if (product.image && product.image !== '') {
+                    imageHtml = `
+                        <div class="product-image-wrapper">
+                            <img src="${product.image}" alt="${product.title}" class="product-image">
+                        </div>
+                    `;
+                } else {
+                    imageHtml = `
+                        <div class="product-image-wrapper">
+                            <div class="no-image">🛍️</div>
+                        </div>
+                    `;
+                }
+                
                 productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.title}" class="product-image" onerror="this.src='https://via.placeholder.com/300x250/CCCCCC/FFFFFF?text=Image+Not+Found'">
+                    ${imageHtml}
                     <div class="product-info">
                         <div class="product-rank">${product.rank}</div>
                         <div class="product-title">${product.title}</div>
@@ -246,7 +276,6 @@
             });
         }
 
-        // Load products when page opens
         displayProducts();
     </script>
 </body>
